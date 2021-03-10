@@ -21,11 +21,14 @@ You can write all your codes into the same script called `spatial_queries.py`.
 - Set coordinate reference system on `events` to `epsg:4269`
 - Read into memory US counties data from `data/ufo/cb_2016_us_county_5m.shp`. Store them in `counties` GeoDataFrame.
 - Check the CRS on `counties`. Align the CRS in `counties` and `events`.
-- Calculate number of sightings in each county. Store your results in `sightings_per_county` GeoDataFrame.
+- Calculate number of sightings in each county. Store your results in `sightings_per_county` GeoDataFrame. The relevant columns in resulting dataframe will look like:
+
+![](img/min_df.png)
+
 - Limit your results to contitnental US. Use this code:
 ```
 continental_us = shapely.geometry.box(-124.848974, 24.396308, 66.885444, 49.384358)
-clipped_gdf = sightings_per_county[
+sightings_per_county = sightings_per_county[
     sightings_per_county.geometry.intersects(continental_us)
 ]
 ```
