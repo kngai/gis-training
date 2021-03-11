@@ -1,10 +1,9 @@
 venv
-.vscode
-cache
-data
-output
+__pycache__
 .vscode
 *.ipynb_checkpoints
+cache
+*.grib2
 *.csv
 *.shp
 *.json
@@ -18,3 +17,5 @@ output
 *.kml
 *.sbn
 *.sbx
+*.html
+Bokeh Plot_files
