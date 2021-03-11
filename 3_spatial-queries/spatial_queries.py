@@ -35,6 +35,13 @@ print(counties.head())
 # print('Counties: {}'.format(counties.crs))
 events.to_crs(counties.crs)
 print('Match CRS? {}\n\n'.format(counties.crs == events.crs))
+    
+# Create geometry for events
+events.lat = events.lat.apply(pd.to_numeric, args=("coerce",))
+events.lng = events.lng.apply(pd.to_numeric, args=('coerce',))
+events['geometry'] = events[["lat", "lng"]].apply(lambda z: Point(z.lng, z.lat), axis=1)
+
+
 
 # Join events with counties
 # sightings_per_county = counties.join(events, lsuffix='NAME', rsuffix='geometrycity')
@@ -57,16 +64,25 @@ print('Match CRS? {}\n\n'.format(counties.crs == events.crs))
 # ]).agg(dict(observed="count")).reset_index()
 
 # Spatial join 2
-sightings_per_county = gpd.sjoin(events, counties, how='inner', op='within')
+# sightings_per_county = gpd.sjoin(events, counties, how='inner', op='within')
 
-print('type: {}\n'.format(type(sightings_per_county)))
-print(sightings_per_county.head())
+# print('type: {}\n'.format(type(sightings_per_county)))
+# print(sightings_per_county.head())
+
+# Do spatial join
+join = gpd.sjoin(counties, events, how='inner', op='contains')
+sightings_per_geoid = join.groupby([
+    "GEOID",
+]).agg(dict(observed="count")).reset_index()
+sightings_per_geoid.columns = ['GEOID', 'SIGHTINGS']
+sightings_per_county = counties.merge(sightings_per_geoid, on="GEOID", how="left")
+
 
 # Plot
-# continental_us = box(-124.848974, 24.396308, 66.885444, 49.384358)
-# clipped_gdf = sightings_per_county[
-#     sightings_per_county.geometry.intersects(continental_us)
-# ]
+continental_us = box(-124.848974, 24.396308, 66.885444, 49.384358)
+clipped_gdf = sightings_per_county[
+    sightings_per_county.geometry.intersects(continental_us)
+]
 
 sightings_per_county.plot(figsize=(10, 10))
 plt.show()

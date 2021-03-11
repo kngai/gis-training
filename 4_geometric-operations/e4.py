@@ -23,11 +23,12 @@ borders = gpd.read_file(input_file_borders, driver='geojson')
 epsg2056wkt = CRS.from_epsg(2056).to_wkt()
 pop.crs = epsg2056wkt
 borders2056 = borders.to_crs(pop.crs)
-print('Pop CRS: {}\n'.format(pop.crs))
-print('Borders2056 CRS: {}\n'.format(borders2056.crs))
+# print('Pop CRS: {}\n'.format(pop.crs))
+# print('Borders2056 CRS: {}\n'.format(borders2056.crs))
 
 # crop pop grid to within borders
 pop_cropped = gpd.overlay(pop, borders, how="intersection")
+print(pop_cropped.head())
 
 # geocode stations
 # Geocode addresses using Nominatim. Remember to provide a custom "application name" in the user_agent parameter!
@@ -48,14 +49,12 @@ geo_trains = geocode(train_stations, provider='nominatim', user_agent='gis-train
 geo_trains = geo_trains.to_crs(pop.crs)
 
 # stations within borders
-geo_trains_mask = geo_trains.within(borders)
-geo_trains_within = geo_trains[geo_trains_mask]
 
 # plot
 # Create a figure with one subplot
 fig, ax = plt.subplots(figsize=(10,10))
-borders2056.plot()
-# pop_cropped.plot(column='pop_total', scheme='Natural_Breaks')
-# geo_trains_within.plot(color="green", markersize=10)
+borders2056.plot(ax=ax, facecolor='gray')
+pop.plot(ax=ax, column='pop_total', scheme='Natural_Breaks')
+geo_trains.plot(ax=ax, color="red", markersize=15)
 
 plt.show()
