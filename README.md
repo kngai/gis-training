@@ -39,22 +39,6 @@ To participate in the course, you will need:
     `python --version`
     If you need to install, or upgrade python, follow [these instructions](https://realpython.com/installing-python/)
 
-* `git`
-
-    To check if you have git installed, run in the terminal:
-    `git --version`
-    If you need to install git, follow [these instructions](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
-
-* IDE
-    Our recommendation for IDE is Visual Studio Code. You are free to use any IDE, as long as it supports python.
-
-    To setup VS Code:
-    * [Download it](https://code.visualstudio.com/download#)
-    * [Install python extension](https://code.visualstudio.com/docs/python/python-tutorial)
-    * [Install black extension](https://marcobelo.medium.com/setting-up-python-black-on-visual-studio-code-5318eba4cd00)
-
-    Black extension will automatically format your code to community-approved standards.
-
 ### Required packages
 
 Now, let's install the required packages. We encourage you to use [virtual environment](https://docs.python.org/3/tutorial/venv.html).

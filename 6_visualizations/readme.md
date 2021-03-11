@@ -42,10 +42,7 @@ Thus far, we aggregated data into buckets. That's handy when trying to distingui
 However, sometimes you will be interested in knowing a precise value at certain location. Let's now add the humidex and windspeed values for meteorological stations.
 
 **Steps**
-* Find list of meteorological stations in the area
-    *Hint*
-    If you cannot easily find addresses of meteorological stations, use list of cities instead.
-* Geocode them. Store the results in `stations` dataframe.
+* Read list of locations from the file. Store the results in `stations` dataframe.
 * Remove any `stations` outside of the `clip_box`
 * For each station, find humidex and wind speed values. Store the values in `stations` dataframe.
 * Add stations to the map from Problem 1.
