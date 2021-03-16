@@ -16,7 +16,6 @@ You will find the data in `MSC_ModelData_vectorized` folder. It consists of:
     * `wind_speed_05.geojson` -> `wind`
     * `WxO_Demo_Smaller_Extent.geojson` -> `clip_box`
     * `land_PubStdZone_coarse_unproj.shp` -> `forecast_zones`
-* Clip the `forecast_zones` to the boundaries of `clip_box`
 
 ## Problem 1: Create heatmap for humidex and wind speed
 
@@ -29,8 +28,6 @@ The goal of this problem is to create heatmap for humidex and wind speed with bo
 * Create a `humidex_classified` dataframe with the following values:
     * class
     * geometry
-    * min_humidex_value
-    * max_humidex_value
     The `humidex_classified` should have as many rows, as classes you defined.
 * Plot `humidex_classified` using bokeh
 * Repeat all steps for `wind` data.
@@ -54,6 +51,7 @@ However, sometimes you will be interested in knowing a precise value at certain 
 Now, let's try to find weather forecast zones that had expected the most extreme humidex and windspeed values.
 
 **Steps**
+* Clip the `forecast_zones` to the boundaries of `clip_box`
 * Find the class number for the highest `humidex`. Store its geometry as `highest_humidex_zone`
 * For each `forecast_zone` find the area that overlaps with `highest_humidex_zone`.
 Store this new geometry in `geom_humidex_high` column.
